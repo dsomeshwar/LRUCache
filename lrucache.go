@@ -82,21 +82,22 @@ func (c *LRUCache) removeNode(key string) {
 		return
 	}
 
+	// Change pointers of PrevNode and NextNode
 	if node.PrevNode != nil {
 		node.PrevNode.NextNode = node.NextNode
 	}
-
 	if node.NextNode != nil {
 		node.NextNode.PrevNode = node.PrevNode
 	}
 
+	// Move FirstNode and LastNode if the node to be deleted is pointed by them
 	if c.FirstNode == node {
 		c.FirstNode = node.NextNode
 	}
 	if c.LastNode == node {
 		c.LastNode = node.PrevNode
 	}
-	// delete node ??
+
 	delete(c.Map, key)
 }
 
